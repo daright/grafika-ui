@@ -1,3 +1,19 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar color="primary">
+  <span>  Projekt z grafiki komputerowej</span>
+</md-toolbar>
+<div class="container">
+
+<article class="project-title">
+  <p>
+    <span>Temat projektu: </span>
+    <span>Filtr splotowy 3x3 dla kolorowych map bitowych z głębią 24-bitową.</span>
+    <span>Możliwość zdefiniowania dowolnej macierzy.</span>
+    <span>Filtrowanie calego obrazu lub wskazanego prosotkąta.</span>
+    <span>Miksowanie obrazu oryginalnego z przefiltrowanym z możliwością regulacji (0-100%).</span>
+  </p>
+</article>
+    <figure>
+        <img src="./../assets/bmp/source.bmp" alt="">
+    </figure>
+    <button md-raised-button (click)="testBackend()">Test</button>
+</div>
