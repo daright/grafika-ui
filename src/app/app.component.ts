@@ -10,6 +10,8 @@ export class AppComponent {
 
     @ViewChild('file') FileInput: ElementRef;
     filePath = '';
+    photoVisible = false;
+    private filename = '';
 
     private backendUrl = 'http://localhost:8080';
     constructor(private http: Http, private sanitizer: DomSanitizer) {
@@ -18,27 +20,35 @@ export class AppComponent {
 
     testBackend() {
         const file = this.FileInput.nativeElement.files[0];
+        this.filename = file.name;
         this.filePath = `./../../assets/bmp/${file.name}`;
-        // this.http.get(this.backendUrl + '/photo/test')
-        //     .subscribe((response) => console.log(response));
+        this.http.get(this.backendUrl + '/photo/test')
+            .subscribe((response) => console.log(response));
     }
 
     sendFile() {
         const file = this.FileInput.nativeElement.files[0];
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
-        console.log(file);
-        console.log(formData);
+        this.filename = file.name;
         this.http.post(this.backendUrl + '/photo/upload', formData)
             .subscribe(
-            (response) => this.filePath = `./../../assets/bmp/${file.name}`,
+            (response) => {
+                this.filePath = `./../../assets/bmp/${file.name}`;
+                this.photoVisible = true;
+            },
             (error) => console.log(error)
             );
     }
 
     filter() {
+        this.photoVisible = false;
+        const timeStamp = new Date().getTime();
         this.http.get(this.backendUrl + '/photo/filter')
-            .subscribe((response) => console.log(response));
+            .subscribe((response) => {
+                this.photoVisible = true;
+                this.filePath = `./../../assets/bmp/${this.filename}?time=${timeStamp}`;
+            });
     }
 
 }

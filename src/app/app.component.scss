@@ -14,3 +14,17 @@ figure {
     }
 }
 
+.interface {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    * {
+        margin: 0.5em;
+    }
+}
