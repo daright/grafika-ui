@@ -18,14 +18,6 @@ export class AppComponent {
 
   }
 
-  testBackend() {
-    const file = this.FileInput.nativeElement.files[0];
-    this.filename = file.name;
-    this.filePath = `./../../assets/bmp/${file.name}`;
-    this.http.get(this.backendUrl + '/photo/test')
-      .subscribe((response) => console.log(response));
-  }
-
   sendFile() {
     const file = this.FileInput.nativeElement.files[0];
     const formData: FormData = new FormData();
