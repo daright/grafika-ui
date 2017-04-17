@@ -6,10 +6,11 @@
 <div class="container" (mouseup)="endSelection($event)" (click)="reset($event)">
 
   <section class="interface">
-    <md-spinner *ngIf="loading && !filePath" class="loading"></md-spinner>
+    <div class="overlay" [hidden]="fileLoaded"></div>
+    <md-spinner *ngIf="loading && !fileLoaded" [attr.color]="accent" class="file-loading"></md-spinner>
     <figure *ngIf="filePath" mdTooltip="Click and drag on the image to select part of it to filter">
-      <img [src]="filePath" alt="photo" #image draggable="false" draggable="false" (mousedown)="beginSelection($event)" (mousemove)="selection($event)">
-      <md-spinner *ngIf="loading" class="loading"></md-spinner>
+      <img [src]="filePath" alt="photo" #image draggable="false" draggable="false" (mousedown)="beginSelection($event)"
+        (mousemove)="selection($event)" (load)="loaded()">
       <div class="selection" (mousedown)="beginSelection($event)" (mousemove)="selection($event)" *ngIf="selected" [style.top.px]="selectionTop"
         [style.left.px]="selectionLeft" [style.width.px]="selectionWidth" [style.height.px]="selectionHeight"></div>
     </figure>

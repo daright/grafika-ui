@@ -20,7 +20,6 @@ export class BackendService {
       .subscribe(response => {
         this.filePath = `./../../assets/bmp/${fileName}`;
         this.filePathEmitter.emit(this.filePath);
-        this.loadingEmmiter.emit(false);
       },
       (error) => console.log(error)
       );
@@ -33,7 +32,6 @@ export class BackendService {
       .subscribe(response => {
         this.filePath = `./../../assets/bmp/${this.fileName}?time=${timeStamp}`;
         this.filePathEmitter.emit(this.filePath);
-        this.loadingEmmiter.emit(false);
       });
   }
 
@@ -48,7 +46,6 @@ export class BackendService {
       .subscribe(response => {
         this.filePath = `./../../assets/bmp/${this.fileName}?time=${timeStamp}`;
         this.filePathEmitter.emit(this.filePath);
-        this.loadingEmmiter.emit(false);
       });
   }
 
@@ -59,7 +56,6 @@ export class BackendService {
       .subscribe(response => {
         this.filePath = `./../../assets/bmp/${this.fileName}?time=${timeStamp}`;
         this.filePathEmitter.emit(this.filePath);
-        this.loadingEmmiter.emit(false);
       });
   }
 
@@ -70,7 +66,6 @@ export class BackendService {
       .subscribe(response => {
         this.filePath = `./../../assets/bmp/${this.fileName}?time=${timeStamp}`;
         this.filePathEmitter.emit(this.filePath);
-        this.loadingEmmiter.emit(false);
       });
   }
 }

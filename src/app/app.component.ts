@@ -28,15 +28,20 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.backendService.filePathEmitter
       .subscribe(response => {
-        this.filePath = response;
-        this.fileLoaded = true;
+          this.filePath = response;
       });
 
     this.backendService.loadingEmmiter
       .subscribe(response => {
+              this.fileLoaded = !response;
         this.loading = response;
       });
     this.resetSelection();
+  }
+
+  loaded() {
+      this.fileLoaded = true;
+      this.loading = false;
   }
 
   beginSelection(event: MouseEvent) {

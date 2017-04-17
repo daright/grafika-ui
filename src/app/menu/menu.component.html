@@ -1,13 +1,13 @@
 <nav>
   <input type="file" #fileInput (change)="sendFile($event)">
   <button md-button [mdMenuTriggerFor]="fileMenu">File</button>
-  <md-menu #fileMenu>
+  <md-menu #fileMenu [overlapTrigger]="false">
     <button md-menu-item (click)="selectFile()">Upload image</button>
     <button md-menu-item (click)="restoreOriginal()" [disabled]="!fileLoaded">Restore original image</button>
   </md-menu>
 
   <button md-button [mdMenuTriggerFor]="filterMenu" [disabled]="!fileLoaded">Filter</button>
-  <md-menu #filterMenu>
+  <md-menu #filterMenu [overlapTrigger]="false">
     <button md-menu-item (click)="box()">Box</button>
     <button md-menu-item (click)="guassianBlur()">Gaussian Blur</button>
     <button md-menu-item (click)="motionBlur()">Motion Blur</button>
@@ -19,19 +19,19 @@
   </md-menu>
 
   <button md-button [mdMenuTriggerFor]="sobel" [disabled]="!fileLoaded">Sobel filters</button>
-  <md-menu #sobel>
+  <md-menu #sobel [overlapTrigger]="false">
     <button md-menu-item (click)="sobelHorizontal()">Sobel Horizontal</button>
     <button md-menu-item (click)="sobelVertical()">Sobel Vertical</button>
   </md-menu>
 
   <button md-button [mdMenuTriggerFor]="edges" [disabled]="!fileLoaded">Find Edges</button>
-  <md-menu #edges>
+  <md-menu #edges [overlapTrigger]="false">
     <button md-menu-item (click)="findHorizontalEdges()">Find Horizontal Edges</button>
     <button md-menu-item (click)="findVerticalEdges()">Find Vertical Edges</button>
   </md-menu>
 
   <button md-button [mdMenuTriggerFor]="custom" [disabled]="!fileLoaded">Custom filter</button>
-  <md-menu #custom>
+  <md-menu #custom [overlapTrigger]="false">
     <button md-menu-item (click)="defineCustomFilter()">Define Custom Filter</button>
     <button md-menu-item [disabled]="!customMatrixSize" (click)="customFilter()">Custom filter</button>
     <button md-menu-item [disabled]="!selectionSaved" (click)="resetSelection()">Reset Selection</button>
