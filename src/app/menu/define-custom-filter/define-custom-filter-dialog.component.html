@@ -1,0 +1,20 @@
+<h1 md-dialog-title>Define Custom Filter</h1>
+<div md-dialog-content>
+  <legend>Matrix Size:
+    <select name="size" [(ngModel)]="matrixSize" (ngModelChange)="matrixSizeChange()">
+    <option value="3" selected="true">3</option>
+    <option value="5">5</option>
+    <option value="7">7</option>
+  </select>
+  </legend>
+  <section class="matrix">
+    <div class="matrix-element" *ngFor="let item of matrix; let i = index; trackBy:trackByFn" [style.width]="(99 / matrixSize) + '%'">
+      <input type="number" [(ngModel)]="matrix[i]">
+    </div>
+  </section>
+</div>
+<div md-dialog-actions>
+  <button md-button (click)="submit()">Submit</button>
+  <button md-button (click)="reset()">Reset</button>
+  <button md-button (click)="dialogRef.close()">Cancel</button>
+</div>

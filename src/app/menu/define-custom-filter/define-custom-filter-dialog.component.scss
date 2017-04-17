@@ -1,0 +1,15 @@
+.matrix {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em 0;
+}
+
+.matrix-element {
+  display: flex;
+  input {
+    margin: 2px 5px;
+    width: 100%;
+    text-align: center;
+  }
+}
+

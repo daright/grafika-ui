@@ -1,8 +1,9 @@
-import { DefineCustomFilterDialogComponent } from './define-custom-filter-dialog.component';
-
+import { FilterSelection } from './../model/filter-selection.model';
+import { DefineCustomFilterDialogComponent } from './define-custom-filter/define-custom-filter-dialog.component';
+import { AboutDialogComponent } from './about/about-dialog.component';
 import { BackendService } from './../service/backend.service';
 import { Http } from '@angular/http';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
 @Component({
@@ -13,19 +14,30 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 export class MenuComponent {
 
 
-  @ViewChild('file') FileInput: ElementRef;
-  photoVisible = false;
+  @ViewChild('fileInput') fileInput: ElementRef;
+  @Input('selectionSaved') selectionSaved: boolean;
+  @Input('fileLoaded') fileLoaded = false;
+  @Input('filterSelection') filterSelection: FilterSelection;
+  @Output() selectionReset = new EventEmitter<boolean>();
+  customMatrixSize;
+  percent = 0;
   private filename = '';
+  private customMatrix: number[];
 
-  private backendUrl = 'http://localhost:8080';
   constructor(private backendService: BackendService, public dialog: MdDialog) { }
 
-  sendFile() {
-    const file = this.FileInput.nativeElement.files[0];
-    const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
-    this.filename = file.name;
-    this.backendService.sendFile(formData, file.name);
+  sendFile(event) {
+    const file = this.fileInput.nativeElement.files[0];
+    if (file) {
+      const formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+      this.filename = file.name;
+      this.backendService.sendFile(formData, file.name);
+    }
+  }
+
+  selectFile() {
+    this.fileInput.nativeElement.click();
   }
 
   box() {
@@ -53,24 +65,60 @@ export class MenuComponent {
     this.filter('motionBlur');
   }
   findHorizontalEdges() {
-    this.filter('findHorizontalEdges');
+    this.filter('findHorizontalLines');
   }
   findVerticalEdges() {
-    this.filter('findVerticalEdges');
+    this.filter('findVerticalLines');
   }
   highPass() {
     this.filter('highPass');
   }
 
+  restoreOriginal() {
+    this.backendService.restoreOriginal();
+  }
+
+  blend() {
+    this.backendService.blend(this.percent);
+  }
+
   filter(filterName: string) {
-    this.backendService.filter(filterName);
+    if (!this.filterSelection) {
+      this.filterSelection = {
+        startX: 0,
+        startY: 0,
+        width: 0,
+        height: 0,
+      }
+    }
+    this.backendService.filter(filterName, this.filterSelection);
+  }
+
+  customFilter() {
+    this.backendService.custom(this.customMatrix, this.filterSelection);
   }
 
   defineCustomFilter() {
-    let dialogRef = this.dialog.open(DefineCustomFilterDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      // this.selectedOption = result;
+    const dialog = this.dialog.open(DefineCustomFilterDialogComponent, {
+      data: {
+        customMatrix: this.customMatrix,
+        customMatrixSize: this.customMatrixSize
+      }
     });
+    dialog.afterClosed()
+      .subscribe(response => {
+        if (response) {
+          this.customMatrix = response.matrix;
+          this.customMatrixSize = response.matrixSize;
+        }
+      });
   }
 
+  showAboutDialog() {
+    this.dialog.open(AboutDialogComponent);
+  }
+
+  resetSelection() {
+    this.selectionReset.emit(true);
+  }
 }

@@ -1,23 +1,17 @@
 <md-toolbar color="primary">
   <span>  Projekt z grafiki komputerowej</span>
 </md-toolbar>
-<div class="container">
-
-  <article class="project-title">
-    <p>
-      <span>Temat projektu: </span>
-      <span>Filtr splotowy 3x3 dla kolorowych map bitowych z głębią 24-bitową.</span>
-      <span>Możliwość zdefiniowania dowolnej macierzy.</span>
-      <span>Filtrowanie calego obrazu lub wskazanego prosotkąta.</span>
-      <span>Miksowanie obrazu oryginalnego z przefiltrowanym z możliwością regulacji (0-100%).</span>
-    </p>
-  </article>
+<app-menu [filterSelection]="filterSelection" [fileLoaded]="fileLoaded" [selectionSaved]="selectionSaved" (selectionReset)="resetSelection()"
+  (loading)="imageLoading()"></app-menu>
+<div class="container" (mouseup)="endSelection($event)" (click)="reset($event)">
 
   <section class="interface">
-    <app-menu></app-menu>
-    <figure>
-      <img [src]="filePath" alt="photo">
-      <!--<md-spinner *ngIf="!photoVisible"></md-spinner>-->
+    <md-spinner *ngIf="loading && !filePath" class="loading"></md-spinner>
+    <figure *ngIf="filePath" mdTooltip="Click and drag on the image to select part of it to filter">
+      <img [src]="filePath" alt="photo" #image draggable="false" draggable="false" (mousedown)="beginSelection($event)" (mousemove)="selection($event)">
+      <md-spinner *ngIf="loading" class="loading"></md-spinner>
+      <div class="selection" (mousedown)="beginSelection($event)" (mousemove)="selection($event)" *ngIf="selected" [style.top.px]="selectionTop"
+        [style.left.px]="selectionLeft" [style.width.px]="selectionWidth" [style.height.px]="selectionHeight"></div>
     </figure>
   </section>
 </div>

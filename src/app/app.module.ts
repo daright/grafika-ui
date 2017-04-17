@@ -1,4 +1,6 @@
-import { DefineCustomFilterDialogComponent } from './menu/define-custom-filter-dialog.component';
+import { DefineCustomFilterDialogComponent } from './menu/define-custom-filter/define-custom-filter-dialog.component';
+import { AboutDialogComponent } from './menu/about/about-dialog.component';
+
 import { BackendService } from './service/backend.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -12,7 +14,8 @@ import { MenuComponent } from './menu/menu.component';
   declarations: [
     AppComponent,
     MenuComponent,
-    DefineCustomFilterDialogComponent
+    DefineCustomFilterDialogComponent,
+    AboutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +27,8 @@ import { MenuComponent } from './menu/menu.component';
     BackendService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DefineCustomFilterDialogComponent]
+  entryComponents: [
+    DefineCustomFilterDialogComponent, AboutDialogComponent
+  ]
 })
 export class AppModule { }

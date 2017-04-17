@@ -1,8 +1,23 @@
-.menu {
+nav {
+    background-color: #eee;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    * {
-        margin: 0.5em;
-    }
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.divider-horizontal {
+    display: block;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, .12);
+}
+
+.divider-vertical {
+    display: block;
+    border-left: 1px solid rgba(0, 0, 0, .12);
+}
+
+md-slider {
+  margin: 0 1em;
 }
