@@ -1,4 +1,4 @@
-<md-toolbar color="primary">
+<md-toolbar color="primary" class="slide-down">
   <span>  Projekt z grafiki komputerowej</span>
 </md-toolbar>
 <app-menu [filterSelection]="filterSelection" [fileLoaded]="fileLoaded" [selectionSaved]="selectionSaved" (selectionReset)="resetSelection()"
@@ -9,8 +9,8 @@
     <div class="overlay" [hidden]="fileLoaded"></div>
     <md-spinner *ngIf="loading && !fileLoaded" [attr.color]="accent" class="file-loading"></md-spinner>
     <figure *ngIf="filePath" mdTooltip="Click and drag on the image to select part of it to filter">
-      <img [src]="filePath" alt="photo" #image draggable="false" draggable="false" (mousedown)="beginSelection($event)"
-        (mousemove)="selection($event)" (load)="loaded()">
+      <img [src]="filePath" alt="photo" #image draggable="false" draggable="false" (mousedown)="beginSelection($event)" (mousemove)="selection($event)"
+        (load)="loaded()">
       <div class="selection" (mousedown)="beginSelection($event)" (mousemove)="selection($event)" *ngIf="selected" [style.top.px]="selectionTop"
         [style.left.px]="selectionLeft" [style.width.px]="selectionWidth" [style.height.px]="selectionHeight"></div>
     </figure>
